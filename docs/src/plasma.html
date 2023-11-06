@@ -1024,7 +1024,7 @@
 <h4 id="1">1. 存款</h4>
 <p>Plasma 的主要思想就是将大部分计算过程都转移到链下进行，用户只有在进入和退出 Plasma Chain 的时候需要跟主链上的智能合约交互，这也是所有 Plasma 应用的标准流程。</p>
 <p>用户在将主链的资产（如以太币或者其它 ERC20 合约发布的 token）转移到 Plasma Chain 的过程称为存款（Deposit），具体做法是直接向主链上的 Plasma 合约发送以太币或 token。Plasma 合约收到 Deposit 交易后会在子链上创建跟 Deposit 数额一致的交易，并将其打包进区块中，作为存款确认的证明。这个过程如下图所示
-<img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/14.png" /></p>
+<img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/14.png?raw=true" /></p>
 <p>当用户看到子链上自己之前存款的交易被确认后，就可以在子链上使用这笔资产（给子链上的其他用户发送交易或者退出子链等）。</p>
 <h4 id="2">2.链下执行</h4>
 <p>Plasma 应用程序在“根链”（例如以太坊）之外完成大部分工作。根链往往速度缓慢且成本高昂，因为它们需要非常安全。如果一个应用程序可以在根区块链之外做任何工作，它应该。</p>
@@ -1042,7 +1042,7 @@
 </ul>
 <p>至于每种防伪证明的具体形式，则依赖于实际 Plasma 应用的实现细则。</p>
 <p>如下图所示，子链中每个节点都存有 1-4 个区块的数据。假设区块 1-3 已经被验证合法，而区块 4 中存在恶意交易，那么每个节点都可以使用 1-4 个区块中的数据构造防伪证明提交到主链，主链验证后将子链中的状态回滚到区块 1-3。</p>
-<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/15.png" /></p>
+<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/15.png?raw=true" /></p>
 <p>防伪证明还可以使用零知识证明（zk-SNARKs 或者 STARKs）来构造，但由于目前通过零知识证明生成证明的时间和空间还有待优化，目前设计的 Plasma 并不依赖零知识证明。零知识证明在 Plasma 中的应用是一个很有前景的研究方向</p>
 <h4 id="5withdrawal">5.取款（Withdrawal）</h4>
 <p>取款（Withdrawal），顾名思义，就是从子链中的资产取回到主链上，因此取款也被称为退出（Exit）。取款操作可以说是 Plasma 框架中最重要的一步，因为它确保用户可以安全地将子链上的资产转移到主链上。之前的存款以及状态确认步骤已经产生了一些交易数据，并在主链上得到同步，用户可以利用这些数据构造资产证明，之后执行简单取款（Simple Withdrawal）操作退出子链。当有扣留（Withholding）攻击发生（即子链上的矿工恶意扣留区块，意图双花攻击等）时，用户可能无法成功获取数据构造资产证明，这时需要执行批量取款（Mass Withdrawal）操作退出子链。</p>
@@ -1076,7 +1076,7 @@
 <h3 id="plasma-mvp">五. Plasma MVP</h3>
 <p>Plasma MVP是针对极其简单的基于UTXO的 Plasma 链的设计。基本的 Plasma MVP 规范支持高吞吐量支付交易，但不支持更复杂的结构，如脚本或智能合约。在本页中，我们将介绍 Plasma MVP 背后的设计过程。您将准确了解 Plasma MVP 的工作原理，以及它为何如此构建。我们还提供了详细的规范，因此您可以构建自己的 Plasma MVP 实现！</p>
 <p>整个 Plasma MVP 的生命周期可以通过下面这幅图表现出来：</p>
-<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/16.png" /></p>
+<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/16.png?raw=true" /></p>
 <h4 id="1plasma">1.Plasma 合约</h4>
 <p>首先需要将 Plasma 合约部署到主链（以太坊）上作为主链和子链沟通的媒介。Plasma 合约会处理由子链提交的区块，并且将区块的哈希值存在主链上。除此之外，还会处理用户的存款（deposit）、取款（withdrawal/exit）以及争议（challenge）操作。</p>
 <p>Plasma 合约中主要包括的数据结构有：</p>
@@ -1174,14 +1174,14 @@ Operator 生成一个恶意交易，占有其他用户的资产，并且尝试�
 <p>用户可以通过将资产存入链的智能合约来开始使用 Plasma Cash 链。然而，与 Plasma MVP 不同的是，每个 Plasma Cash 资产都由一个不可替代的代币表示。例如，如果用户将 10 ETH 存入合约，该用户将收到价值 10 ETH 的代币。每个令牌都有一个唯一的标识符。</p>
 <h4 id="3_1">3. 块</h4>
 <p>Plasma Cash 块与 Plasma MVP 块有很大不同。每个 Plasma Cash 块都有一个用于存在的每个代币的插槽。每当使用令牌时，该交易的记录都会放置在相应的插槽中。这是具有四个代币的 Plasma Cash 链的样子。</p>
-<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/17.png" /></p>
+<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/17.png?raw=true" /></p>
 <p>在此示例中，令牌#4是从用户A发送给用户B的。请注意#1、#2和#3没有被花费，所以我们没有在这些插槽中放置任何东西！这种特殊的结构给了我们一些非常酷的东西。除了能够显示代币已在特定区块中花费外，我们还可以显示代币在该区块中没有易手。</p>
 <p>因此，Plasma MVP 块形成标准的Merkle 树，而 Plasma Cash 块形成稀疏的Merkle 树。标准的 Merkle 树并没有给我们提供一个很好的方法来证明某物不是特定块的一部分，但是<a href="https://medium.com/@kelvinfichter/whats-a-sparse-merkle-tree-acda70aeb837">稀疏的 Merkle 树</a>可以！</p>
 <p>最酷的是用户实际上不需要跟踪每个令牌！一个代币的交易永远不能放入另一个代币的槽中。用户只需要跟踪他们自己的代币——其他插槽中的内容甚至都无关紧要。</p>
 <h4 id="4">4. 交易</h4>
 <p>由于用户只跟踪他们自己的代币，他们不知道谁拥有任何其他代币。当用户想要将他们的代币发送给另一个用户时，他们需要证明他们确实拥有该代币！该证明包括代币的完整交易历史 - 自首次创建代币以来的每笔交易。如果历史记录是正确的，那么它应该显示以发件人结尾的所有者列表。</p>
 <p>为了证明历史实际上是正确的，用户需要提供额外的证据证明历史中的每笔交易都正确地包含在一个块中。此外，为了证明没有任何丢失的交易，用户还需要提供代币没有在任何其他区块中花费的证明。让我们通过几个 Plasma Cash 块来证明这一点。</p>
-<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/18.png" /></p>
+<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/18.png?raw=true" /></p>
 <p>在这四个区块结束时，G拥有代币#2，C拥有代币#4。那么G如何证明他们实际上拥有#2呢？简单的！G只需要证明#2没有在区块#1 和#3 中花费，并且它在区块#2 中从E转移到F ，在区块#4 中从F转移到G。G可以通过对每个块的简单 Merkle 证明来做到这一点（利用特殊的稀疏 Merkle 树结构）。</p>
 <p>类似地，C可以通过证明代币没有在 2 和 4 块中花费，并证明它是从A发送到B然后从B发送到C来证明他们拥有#4。</p>
 <h4 id="5">5. 提款</h4>

@@ -794,7 +794,7 @@
 <li>Bridge: 促进第 1 层和第 2 层之间消息传递的合约。</li>
 <li>Predeploys:一组基本合约，在系统的创世状态下部署并可用。这些合约类似于以太坊的预编译，但是它们是用 Solidity 编写的，并且可以在前缀为 0x42 的地址中找到。</li>
 </ul>
-<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/40.png" /></p>
+<p><img alt="" src="https://github.com/guoshijiang/layer2/blob/main/images/40.png?raw=true" /></p>
 <h3 id="optimism_1">三. Optimism 如何运行</h3>
 <p>Optimism 使用了 optimistic rollup。 当您提交交易时，交易数据将写入以太坊主网， 但交易本身由一个计算机执行，即排序器 (而不是以太坊那种数以千计的计算机)。 这明显地降低了交易成本，挑战机制则确保排序器是诚实的。</p>
 <p>Optimism 是一种“Optimistic Rollup”，它基本上只是描述区块链的一种奇特方式，它捎带了另一个“父”区块链的安全性。具体来说，Optimistic Rollups 利用其父链的共识机制（如 PoW 或 PoS），而不是提供自己的。在 Optimism 的案例中，这个父区块链是以太坊。</p>
